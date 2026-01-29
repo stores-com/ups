@@ -15,7 +15,7 @@
     ],
     "license": "Apache-2.0",
     "name": "@mediocre/ups",
-    "repository": "https://github.com/mediocre/ups",
+    "repository": "https://github.com/stores-com/ups",
     "scripts": {
         "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
         "test": "node --test test/"
