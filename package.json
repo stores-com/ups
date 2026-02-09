@@ -18,7 +18,7 @@
     "repository": "https://github.com/stores-com/ups",
     "scripts": {
         "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-        "test": "node --test test/"
+        "test": "node --test --test-concurrency=true --test-reporter=spec"
     },
     "version": "0.1.4"
 }
