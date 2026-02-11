@@ -14,6 +14,9 @@
     ],
     "license": "Apache-2.0",
     "name": "@stores.com/ups",
+    "publishConfig": {
+        "access": "public"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/stores-com/ups.git"
