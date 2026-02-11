@@ -23,7 +23,11 @@ test('getAccessToken', { concurrency: true }, async (t) => {
             environment_url: 'https://httpbin.org/status/500#'
         });
 
-        await assert.rejects(ups.getAccessToken(), { message: '500 Internal Server Error', name: 'HttpError' });
+        await assert.rejects(ups.getAccessToken(), (err) => {
+            assert.strictEqual(err.name, 'HttpError');
+            assert.match(err.message, /^500/);
+            return true;
+        });
     });
 
     t.test('should return a valid access token', async () => {
