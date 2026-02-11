@@ -1,20 +1,20 @@
 # ups
 
 [![Test](https://github.com/stores-com/ups/actions/workflows/test.yml/badge.svg)](https://github.com/stores-com/ups/actions/workflows/test.yml)
-[![Coverage Status](https://coveralls.io/repos/github/mediocre/ups/badge.svg?branch=main)](https://coveralls.io/github/mediocre/ups?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/stores-com/ups/badge.svg?branch=main)](https://coveralls.io/github/stores-com/ups?branch=main)
 
 The Power of UPS on Your Digital Platform. Our APIs power the data connections needed to deliver value to customers through e-commerce platforms, supply chain visibility solutions and direct integrations.
 
 ## Installation
 
 ```
-$ npm install @mediocre/ups
+$ npm install @stores.com/ups
 ```
 
 ## Usage
 
 ```javascript
-const UPS = require('@mediocre/ups');
+const UPS = require('@stores.com/ups');
 
 const ups = new UPS({
     client_id: 'your_client_id',
