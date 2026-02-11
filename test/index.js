@@ -1,20 +1,16 @@
 const assert = require('node:assert');
-const { test, describe, beforeEach, after } = require('node:test');
+const test = require('node:test');
 
 const cache = require('memory-cache');
 
 const UPS = require('../index');
 
-beforeEach(() => {
-    cache.clear();
-});
+test('getAccessToken', { concurrency: true }, async (t) => {
+    t.after(() => {
+        cache.clear();
+    });
 
-after(() => {
-    cache.clear();
-});
-
-describe('getAccessToken', () => {
-    test('should return an error for invalid environment_url', async () => {
+    t.test('should return an error for invalid environment_url', async () => {
         const ups = new UPS({
             environment_url: 'invalid'
         });
@@ -22,15 +18,15 @@ describe('getAccessToken', () => {
         await assert.rejects(ups.getAccessToken(), { message: 'Failed to parse URL from invalid/security/v1/oauth/token' });
     });
 
-    test('should return an error for non 200 status code', async () => {
+    t.test('should return an error for non 200 status code', async () => {
         const ups = new UPS({
             environment_url: 'https://httpbin.org/status/500#'
         });
 
-        await assert.rejects(ups.getAccessToken(), { message: 'Internal Server Error', status: 500 });
+        await assert.rejects(ups.getAccessToken(), { message: '500 Internal Server Error', name: 'HttpError' });
     });
 
-    test('should return a valid access token', async () => {
+    t.test('should return a valid access token', async () => {
         const ups = new UPS({
             client_id: process.env.CLIENT_ID,
             client_secret: process.env.CLIENT_SECRET
@@ -45,7 +41,7 @@ describe('getAccessToken', () => {
         assert.strictEqual(accessToken.token_type, 'Bearer');
     });
 
-    test('should return the same access token on subsequent calls', async () => {
+    t.test('should return the same access token on subsequent calls', async () => {
         const ups = new UPS({
             client_id: process.env.CLIENT_ID,
             client_secret: process.env.CLIENT_SECRET
@@ -58,8 +54,12 @@ describe('getAccessToken', () => {
     });
 });
 
-describe('getTracking', () => {
-    test('should return tracking data for test tracking number', async () => {
+test('getTracking', { concurrency: true }, async (t) => {
+    t.after(() => {
+        cache.clear();
+    });
+
+    t.test('should return tracking data for test tracking number', async () => {
         const ups = new UPS({
             client_id: process.env.CLIENT_ID,
             client_secret: process.env.CLIENT_SECRET
@@ -71,7 +71,7 @@ describe('getTracking', () => {
         assert(tracking.trackResponse);
     });
 
-    test('should handle error for blank tracking number', async () => {
+    t.test('should handle error for blank tracking number', async () => {
         const ups = new UPS({
             client_id: process.env.CLIENT_ID,
             client_secret: process.env.CLIENT_SECRET

@@ -1,18 +1,20 @@
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 
 const cache = require('memory-cache');
-const createError = require('http-errors');
+
+const HttpError = require('./http-error');
 
 function UPS(args) {
-    const options = Object.assign({
-        environment_url: 'https://wwwcie.ups.com'
-    }, args);
+    const options = {
+        environment_url: 'https://wwwcie.ups.com',
+        ...args
+    };
 
     /**
      * The UPS OAuth Client Credentials API helps retrieve an OAuth Bearer token when the integration owner is also the UPS shipper. The integration owner uses their UPS login credentials, and the UPS account number, to receive a token that can be used in the authorization HTTP header of subsequent API calls to UPS APIs like the Ship API, Track API, etc.
      * @see https://developer.ups.com/tag/OAuth-Client-Credentials?loc=en_US
      */
-    this.getAccessToken = async () => {
+    this.getAccessToken = async (_options = {}) => {
         const url = `${options.environment_url}/security/v1/oauth/token`;
         const key = `${url}?client_id=${options.client_id}`;
 
@@ -30,18 +32,17 @@ function UPS(args) {
         });
 
         const res = await fetch(url, {
-            method: 'POST',
+            body: formData,
             headers: {
                 Authorization: `Basic ${Buffer.from(`${options.client_id}:${options.client_secret}`).toString('base64')}`,
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: formData
+            method: 'POST',
+            signal: AbortSignal.timeout(_options.timeout || 30000)
         });
 
         if (!res.ok) {
-            const err = createError(res.status);
-            err.response = await res.json().catch(() => ({}));
-            throw err;
+            throw await HttpError.from(res);
         }
 
         const json = await res.json();
@@ -69,13 +70,12 @@ function UPS(args) {
                 'Authorization': `Bearer ${accessToken.access_token}`,
                 'transId': crypto.randomUUID(),
                 'transactionSrc': 'ups'
-            }
+            },
+            signal: AbortSignal.timeout(_options.timeout || 30000)
         });
 
         if (!res.ok) {
-            const err = createError(res.status);
-            err.response = await res.json().catch(() => ({}));
-            throw err;
+            throw await HttpError.from(res);
         }
 
         return await res.json();

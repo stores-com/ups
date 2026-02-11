@@ -1,6 +1,5 @@
 {
     "dependencies": {
-        "http-errors": "~2.0.0",
         "memory-cache": "~0.2.0"
     },
     "description": "The Power of UPS on Your Digital Platform. Our APIs power the data connections needed to deliver value to customers through e-commerce platforms, supply chain visibility solutions and direct integrations.",
@@ -14,11 +13,14 @@
         "ups"
     ],
     "license": "Apache-2.0",
-    "name": "@mediocre/ups",
-    "repository": "https://github.com/stores-com/ups",
+    "name": "@stores.com/ups",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/stores-com/ups.git"
+    },
     "scripts": {
-        "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+        "coveralls": "node --test --test-concurrency=true --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=lcov.info && coveralls < lcov.info",
         "test": "node --test --test-concurrency=true --test-reporter=spec"
     },
-    "version": "0.1.4"
+    "version": "1.0.0"
 }
