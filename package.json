@@ -1,5 +1,6 @@
 {
     "dependencies": {
+        "@stores.com/http-error": "~1.0.0",
         "memory-cache": "~0.2.0"
     },
     "description": "The Power of UPS on Your Digital Platform. Our APIs power the data connections needed to deliver value to customers through e-commerce platforms, supply chain visibility solutions and direct integrations.",
@@ -25,5 +26,5 @@
         "coveralls": "node --test --test-concurrency=true --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=lcov.info && coveralls < lcov.info",
         "test": "node --test --test-concurrency=true --test-reporter=spec"
     },
-    "version": "1.0.1"
+    "version": "1.1.0"
 }

@@ -71,7 +71,3 @@ console.log(tracking);
 //     }
 // }
 ```
-
-## License
-
-Apache-2.0

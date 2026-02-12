@@ -1,8 +1,7 @@
 const crypto = require('node:crypto');
 
 const cache = require('memory-cache');
-
-const HttpError = require('./http-error');
+const HttpError = require('@stores.com/http-error');
 
 function UPS(args) {
     const options = {
