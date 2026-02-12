@@ -1,15 +1,9 @@
 const assert = require('node:assert');
 const test = require('node:test');
 
-const cache = require('memory-cache');
-
 const UPS = require('../index');
 
 test('getAccessToken', { concurrency: true }, async (t) => {
-    t.after(() => {
-        cache.clear();
-    });
-
     t.test('should return an error for invalid environment_url', async () => {
         const ups = new UPS({
             environment_url: 'invalid'
@@ -59,10 +53,6 @@ test('getAccessToken', { concurrency: true }, async (t) => {
 });
 
 test('getTracking', { concurrency: true }, async (t) => {
-    t.after(() => {
-        cache.clear();
-    });
-
     t.test('should return tracking data for test tracking number', async () => {
         const ups = new UPS({
             client_id: process.env.CLIENT_ID,
