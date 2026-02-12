@@ -17,7 +17,6 @@ function UPS(args) {
         const url = `${options.environment_url}/security/v1/oauth/token`;
         const key = `${url}?client_id=${options.client_id}`;
 
-        // Try to get the access token from memory cache
         const accessToken = cache.get(key);
 
         if (accessToken) {
@@ -46,7 +45,6 @@ function UPS(args) {
 
         const json = await res.json();
 
-        // Put the access token in memory cache
         cache.put(key, json, Number(json.expires_in) * 1000 / 2);
 
         return json;
@@ -66,9 +64,9 @@ function UPS(args) {
 
         const res = await fetch(`${options.environment_url}/api/track/v1/details/${inquiryNumber}?${query.toString()}`, {
             headers: {
-                'Authorization': `Bearer ${accessToken.access_token}`,
-                'transId': crypto.randomUUID(),
-                'transactionSrc': 'ups'
+                Authorization: `Bearer ${accessToken.access_token}`,
+                transId: crypto.randomUUID(),
+                transactionSrc: 'ups'
             },
             signal: AbortSignal.timeout(_options.timeout || 30000)
         });
