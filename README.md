@@ -1,7 +1,7 @@
 # ups
 
 [![Test](https://github.com/stores-com/ups/actions/workflows/test.yml/badge.svg)](https://github.com/stores-com/ups/actions/workflows/test.yml)
-[![Coverage Status](https://coveralls.io/repos/github/stores-com/ups/badge.svg?branch=main)](https://coveralls.io/github/stores-com/ups?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/stores-com/ups/badge.svg?branch=main&t=Up4w3F)](https://coveralls.io/github/stores-com/ups?branch=main)
 [![npm version](https://img.shields.io/npm/v/@stores.com/ups)](https://www.npmjs.com/package/@stores.com/ups)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
