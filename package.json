@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "@stores.com/http-error": "~1.0.0",
+        "@stores.com/http-error": "~1.1.0",
         "memory-cache": "~0.2.0"
     },
     "description": "The Power of UPS on Your Digital Platform. Our APIs power the data connections needed to deliver value to customers through e-commerce platforms, supply chain visibility solutions and direct integrations.",
