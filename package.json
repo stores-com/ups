@@ -5,8 +5,8 @@
     },
     "description": "The Power of UPS on Your Digital Platform. Our APIs power the data connections needed to deliver value to customers through e-commerce platforms, supply chain visibility solutions and direct integrations.",
     "devDependencies": {
-        "@eslint/js": "*",
-        "globals": "*"
+        "@eslint/js": "~9.34.0",
+        "globals": "~16.3.0"
     },
     "keywords": [
         "logistics",
