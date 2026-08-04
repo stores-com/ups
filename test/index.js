@@ -14,7 +14,7 @@ test('getAccessToken', { concurrency: true }, async (t) => {
 
     t.test('should return an error for non 200 status code', async () => {
         const ups = new UPS({
-            environment_url: 'https://httpbin.org/status/500#'
+            environment_url: 'https://httpbingo.org/status/500#'
         });
 
         await assert.rejects(ups.getAccessToken(), (err) => {
