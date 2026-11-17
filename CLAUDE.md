@@ -4,14 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Node.js library for the UPS API that provides OAuth authentication and package tracking functionality. The library has been migrated from the legacy `request` library to native `fetch` API and from Mocha to Node.js native test runner.
+This is a Node.js library for the UPS API that provides OAuth authentication and package tracking functionality. It uses native `fetch` and the Node.js test runner.
 
 ## Development Commands
 
 **Testing:**
 - `npm test` - Run all tests using Node.js native test runner
-- `node --test test/index.js` - Run specific test file
-- Tests are grouped using `describe()` blocks and use async/await patterns
+- `node --test --test-force-exit test/index.js` - Run specific test file
+- Tests are grouped as top-level `test()` calls with `{ concurrency: true }` and `t.test()` subtests, using async/await
 
 **Key Environment Variables:**
 - `CLIENT_ID` - UPS API client ID (required for tests)
@@ -34,7 +34,7 @@ The library exports a single constructor function `Ups` that creates instances w
 - Production: `https://onlinetools.ups.com`
 
 **API Implementation Details:**
-- Uses native `fetch` API instead of legacy request library
+- Uses native `fetch`
 - OAuth endpoint: `/security/v1/oauth/token`
 - Tracking endpoint: `/api/track/v1/details/{inquiryNumber}`
 - Tracking requires `transId` (UUID) and `transactionSrc` headers
@@ -44,5 +44,4 @@ The library exports a single constructor function `Ups` that creates instances w
 - UPS test environment returns consistent mock responses regardless of tracking number used
 
 **Memory Management:**
-- Tests use `after()` hook to clear memory cache to prevent test runner from hanging
-- Cache is cleared before each test with `beforeEach()` hook
+- Tests have no cache hooks; `npm test` passes `--test-force-exit` so the runner exits
